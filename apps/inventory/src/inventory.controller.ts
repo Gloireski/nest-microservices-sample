@@ -1,5 +1,8 @@
+// inventory/inventory.controller.ts
 import { Controller, Get } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
+import { EventPattern } from '@nestjs/microservices';
+import { EVENTS } from '@app/constants';
 
 @Controller()
 export class InventoryController {
@@ -7,6 +10,14 @@ export class InventoryController {
 
   @Get()
   getHello(): string {
-    return this.inventoryService.getHello();
+    return "Hello";
   }
+
+  @EventPattern(EVENTS.ORDER_CREATED)
+  handleOrderCreated(data: any) {
+    // console.log("Order created, ", data)
+    // change this line
+    this.inventoryService.handleOrderCreated(data);
+  }
+
 }

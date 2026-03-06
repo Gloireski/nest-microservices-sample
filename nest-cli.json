@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/nest-microservices-sample",
   "projects": {
+    "constants": {
+      "type": "library",
+      "root": "libs/constants",
+      "entryFile": "index",
+      "sourceRoot": "libs/constants/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/constants/tsconfig.lib.json"
+      }
+    },
     "inventory": {
       "type": "application",
       "root": "apps/inventory",
@@ -35,6 +44,15 @@
       "sourceRoot": "apps/order/src",
       "compilerOptions": {
         "tsConfigPath": "apps/order/tsconfig.app.json"
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
       }
     }
   }
