@@ -1,11 +1,13 @@
+// tracing.ts MUST be imported first — before any NestJS or Node.js modules
+import { otelSDK } from './tracing';
 import { NestFactory } from '@nestjs/core';
 import { InventoryModule } from './inventory.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory
-  .createMicroservice<MicroserviceOptions>(
-    InventoryModule,
+  await otelSDK.start();
+  const app = await NestFactory.create(InventoryModule)
+  app.connectMicroservice<MicroserviceOptions>(
     {
       transport: Transport.TCP,
       options: {
@@ -14,6 +16,7 @@ async function bootstrap() {
       }
     }
   )
-  await app.listen();
+  app.startAllMicroservices();
+  await app.listen(3002);
 }
 bootstrap();

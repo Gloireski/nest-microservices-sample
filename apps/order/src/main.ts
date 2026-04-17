@@ -1,11 +1,17 @@
+// tracing.ts MUST be imported first — before any NestJS or Node.js modules
+import { otelSDK } from './tracing';
 import { NestFactory } from '@nestjs/core';
 import { OrderModule } from './order.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  // configure the microservice to listen on port 8001 using
-  // the TCP transport layer, hybrid instance
-  const app = await NestFactory.create(OrderModule);
+  // Start OpenTelemetry SDK before NestJS bootstraps
+  await otelSDK.start();
+  const app = await NestFactory.create(OrderModule, {
+    // DevTools connects to this port to inspect module graph and providers.
+    // ONLY enable in development — never in production.
+    snapshot: process.env.NODE_ENV !== 'production',
+  });
   app.connectMicroservice<MicroserviceOptions>(
     {
       transport: Transport.TCP,

@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+// import { ProxyController } from 'apps/api-gateway/src/proxy.controller';
+import { TerminusModule } from '@nestjs/terminus';
+import { HttpModule } from '@nestjs/axios';
+import { ApiGatewayModule } from 'apps/api-gateway/src/api-gateway.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [TerminusModule, HttpModule, ApiGatewayModule],
+  controllers: [],
+  providers: [
+
+  ],
 })
 export class AppModule {}

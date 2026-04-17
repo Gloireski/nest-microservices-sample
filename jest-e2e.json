@@ -7,9 +7,8 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "^@app/shared$": "<rootDir>/libs/shared/src",
-    "^@app/constants$": "<rootDir>/libs/constants",
-    "^@app/constants/(.*)$": "<rootDir>/libs/constants/$1",
+    "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1",
+    "^@app/constants(|/.*)$": "<rootDir>/libs/constants/src/$1",
     "^@app/(.*)$": "<rootDir>/libs/$1",
     "^apps/(.*)$": "<rootDir>/apps/$1"
   }
